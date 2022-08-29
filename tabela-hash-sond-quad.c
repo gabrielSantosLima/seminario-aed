@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #define MAXSIZE 23
 
@@ -16,34 +16,38 @@ typedef struct HASHTABLE
 {
     int length;
     ITEM *data[MAXSIZE];
-    
+
 } HASHTABLE;
+
 
 ITEM *createItem(char *key, char *name, int age, int rg)
 {
-    ITEM *newItem = (ITEM *)malloc(sizeof(ITEM));
-    newItem->key = (char *)malloc(strlen(key));
-    newItem->name = (char *)malloc(strlen(name));
-    strcpy(newItem->key, key);
-    strcpy(newItem->name, name);
-    newItem->age = age;
-    newItem->rg = rg;
-    return newItem;
+    ITEM *newNode = (ITEM *)malloc(sizeof(ITEM));
+    newNode->key = (char *)malloc(strlen(key));
+    newNode->key = (char *)malloc(strlen(name));
+    strcpy(newNode->key, key);
+    strcpy(newNode->key, name);
+    newNode->age = age;
+    newNode->rg = rg;
+    return newNode;
 }
 
+// The function createHashTable will be a vector which is inicialized with null
 HASHTABLE *createHashTable()
 {
     HASHTABLE *newHashTable = (HASHTABLE *)malloc(sizeof(HASHTABLE));
     newHashTable->length = 0;
-    int index = 0;
-    for (index = 0; index < MAXSIZE; index++)
+    for (int index = 0; index < MAXSIZE; index++)
     {
         newHashTable->data[index] = NULL;
     }
     return newHashTable;
 }
 
-int hash67Of(char *key)
+// The hast fuction must recive a key (char string)
+// and will return the position where that key will be allocated
+
+int hash(char *key)
 {
     int length = strlen(key);
     int index = 0;
@@ -56,23 +60,11 @@ int hash67Of(char *key)
     return hashKey % MAXSIZE;
 }
 
-int hash31Of(char *key)
+int quadraticHashing(char *key, int i)
 {
-    int length = strlen(key);
-    int index = 0;
-    int hashKey = 0;
-    for (index = 0; index < length; index++)
-    {
-        int charKey = (int)key[index];
-        hashKey += 31 * (charKey * charKey * charKey);
-    }
-    return hashKey % MAXSIZE;
+    return (hash(key) + i * i) % MAXSIZE;
 }
 
-int doubleHashing(char *key, int i)
-{
-    return (hash67Of(key) + i * hash31Of(key)) % MAXSIZE;
-}
 
 void insert(HASHTABLE *table, char *key, char *name, int age, int rg)
 {
@@ -80,20 +72,21 @@ void insert(HASHTABLE *table, char *key, char *name, int age, int rg)
         return;
     ITEM *newItem = createItem(key, name, age, rg);
     int collision = 0;
-    while (table->data[doubleHashing(key, collision)] != NULL)
+    while (table->data[quadraticHashing(key, collision)] != NULL)
     {
         collision++;
     }
-    table->data[doubleHashing(key, collision)] = newItem;
+    table->data[quadraticHashing(key, collision)] = newItem;
     table->length++;
 }
+
 
 ITEM *findElementByKey(HASHTABLE table, char *key)
 {
     int collision = 0;
     while (collision < MAXSIZE)
     {
-        ITEM *item = table.data[doubleHashing(key, collision)];
+        ITEM *item = table.data[quadraticHashing(key, collision)];
         if (item != NULL && strcmp(item->key, key) == 0)
             return item;
         collision++;
@@ -108,10 +101,10 @@ void removeElementByKey(HASHTABLE *table, char *key)
     int collision = 0;
     while (collision < MAXSIZE)
     {
-        ITEM *item = table->data[doubleHashing(key, collision)];
+        ITEM *item = table->data[quadraticHashing(key, collision)];
         if (item != NULL && strcmp(item->key, key) == 0)
         {
-            table->data[doubleHashing(key, collision)] = NULL;
+            table->data[quadraticHashing(key, collision)] = NULL;
             table->length--;
             free(item);
             return;

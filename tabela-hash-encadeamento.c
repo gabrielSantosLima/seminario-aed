@@ -14,6 +14,7 @@ typedef struct NODE
 typedef struct HASHTABLE
 {
     NODE *data[MAXSIZE];
+
 } HASHTABLE;
 
 int hash(char *key)
@@ -55,6 +56,7 @@ HASHTABLE *createHashTable()
 void add(HASHTABLE *hashTable, char *key, int value)
 {
     NODE *newNode = createNode(key, value);
+
     if (hashTable->data[hash(key)] == NULL)
     {
         hashTable->data[hash(key)] = newNode;
@@ -62,6 +64,7 @@ void add(HASHTABLE *hashTable, char *key, int value)
     else
     {
         NODE *tempNode = hashTable->data[hash(key)];
+    
         while (tempNode->nextNode != NULL)
         {
             tempNode = tempNode->nextNode;
