@@ -19,14 +19,13 @@ typedef struct HASHTABLE
 
 } HASHTABLE;
 
-
 ITEM *createItem(char *key, char *name, int age, int rg)
 {
     ITEM *newNode = (ITEM *)malloc(sizeof(ITEM));
     newNode->key = (char *)malloc(strlen(key));
-    newNode->key = (char *)malloc(strlen(name));
+    newNode->name = (char *)malloc(strlen(name));
     strcpy(newNode->key, key);
-    strcpy(newNode->key, name);
+    strcpy(newNode->name, name);
     newNode->age = age;
     newNode->rg = rg;
     return newNode;
@@ -44,7 +43,7 @@ HASHTABLE *createHashTable()
     return newHashTable;
 }
 
-// The hast fuction must recive a key (char string)
+// The hash function must recieve a key (char string)
 // and will return the position where that key will be allocated
 
 int hash(char *key)
@@ -65,7 +64,6 @@ int quadraticHashing(char *key, int i)
     return (hash(key) + i * i) % MAXSIZE;
 }
 
-
 void insert(HASHTABLE *table, char *key, char *name, int age, int rg)
 {
     if (table->length == MAXSIZE)
@@ -79,7 +77,6 @@ void insert(HASHTABLE *table, char *key, char *name, int age, int rg)
     table->data[quadraticHashing(key, collision)] = newItem;
     table->length++;
 }
-
 
 ITEM *findElementByKey(HASHTABLE table, char *key)
 {
