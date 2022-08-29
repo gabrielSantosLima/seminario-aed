@@ -4,8 +4,8 @@
 
 # Implementações
 
-- Sondagem Linear 🟡
-- Sondagem Quadrática 🟡
+- Sondagem Linear 🟢
+- Sondagem Quadrática 🟢
 - Hash duplo 🟢
 
 > 🟢 Finalizado | 🟡 Em progresso | 🔴 A fazer
