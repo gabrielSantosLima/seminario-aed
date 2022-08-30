@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#define MAXSIZE 23
+#define MAXSIZE 11
 
 typedef struct ITEM
 {
@@ -83,6 +83,7 @@ void insert(HASHTABLE *table, char *key, char *name, int age, int rg)
     while (table->data[doubleHashing(key, collision)] != NULL)
     {
         collision++;
+        printf("Colisao: de %s foi de %d para %d\n", name, doubleHashing(key, (collision - 1)), doubleHashing(key, collision));
     }
     table->data[doubleHashing(key, collision)] = newItem;
     table->length++;
@@ -145,30 +146,10 @@ void printAll(HASHTABLE table)
 int main()
 {
     HASHTABLE *table = createHashTable();
-    insert(table, "Gabriel", "Gabriel", 19, 22222222);
-    insert(table, "Arthur", "Arthur", 19, 33333333);
-    insert(table, "Alexandre", "Alexandre", 19, 44444444);
-    insert(table, "Lídia", "Lídia", 19, 55555555);
-    insert(table, "Augusto", "Augusto", 19, 66666666);
-    insert(table, "Roberto", "Roberto", 19, 77777777);
-    insert(table, "Luana", "Luana", 19, 88888888);
-    insert(table, "Guilhermo", "Guilhermo", 19, 99999999);
-    insert(table, "Adriano", "Adriano", 19, 21221212);
-    insert(table, "Sabrina", "Sabrina", 19, 11111111);
-    insert(table, "Sergio", "Sergio", 30, 12121212);
+    insert(table, "Luana M.", "Luana", 19, 88888888);
+    insert(table, "Guilhermo ", "Guilhermo", 19, 99999999);
     printAll(*table);
     printf("\n");
-    removeElementByKey(table, "Sergio");
-    printAll(*table);
-    printf("\n");
-    ITEM *item = findElementByKey(*table, "Gabriel");
-    if (item == NULL)
-    {
-        printf("Item não encontrado");
-    }
-    else
-    {
-        printf("%s is [name=%s, age=%d, rg=%d]\n", item->key, item->name, item->age, item->rg);
-    }
+
     return 0;
 }
