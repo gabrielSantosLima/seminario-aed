@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#define MAXSIZE 11
+#define MAXSIZE 7
 
 typedef struct ITEM
 {
@@ -55,7 +55,7 @@ int hash(char *key)
     for (index = 0; index < length; index++)
     {
         int charKey = (int)key[index];
-        hashKey += 13 * (charKey * charKey);
+        hashKey += 19 * (charKey * charKey);
     }
     return hashKey % MAXSIZE;
 }
@@ -144,9 +144,9 @@ int main()
     //insert(table, "Augusto", "Augusto", 19, 66666666);
     //insert(table, "Roberto", "Roberto", 19, 77777777);
     insert(table, "Guilhermo ", "Guilhermo", 19, 99999999);
-    insert(table, "Luana M.", "Luana", 19, 88888888);
+    insert(table, "Luana J.", "Luana", 19, 88888888);
     // insert(table, "Adriano", "Adriano", 19, 21221212);
-    insert(table, "Sabrina", "Sabrina", 19, 11111111);
+    //insert(table, "Sabrina", "Sabrina", 19, 11111111);
     printAll(*table);
     printf("\n");
 

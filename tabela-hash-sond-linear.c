@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#define MAXSIZE 11
+#define MAXSIZE 7
 
 typedef struct ITEM
 {
@@ -137,10 +137,10 @@ void printAll(HASHTABLE table)
 int main()
 {
     HASHTABLE *table = createHashTable();
-    insert(table, "Alexandre", "Alexandre", 19, 44444444);
-    insert(table, "Sabrina", "Sabrina", 19, 11111111);
-    insert(table, "Luana M.", "Luana", 19, 88888888);
     insert(table, "Guilhermo ", "Guilhermo", 19, 99999999);
+    insert(table, "Sabrina", "Sabrina", 19, 11111111);
+    insert(table, "Alexandre", "Alexandre", 19, 44444444);
+    //insert(table, "Luana M.", "Luana", 19, 88888888);
     printAll(*table);
     printf("\n");
     return 0;
